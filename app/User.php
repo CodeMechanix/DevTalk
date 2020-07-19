@@ -14,12 +14,12 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
-    
+
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -27,10 +27,16 @@ class User extends Authenticatable
     public function questions()
     {
         return $this->hasMany(Question::class);
-    } 
+    }
 
     public function answers()
     {
         return $this->hasMany(Answer::class);
+    }
+
+    public function getUrlAttribute()
+    {
+        return '#';
+//        return route('questions.show', $this->id);
     }
 }
