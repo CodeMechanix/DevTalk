@@ -56,4 +56,10 @@ class QuestionController extends Controller
 
         return redirect('/questions')->with('success', "Your question has been updated.");
     }
+
+    public function destroy(Question $question)
+    {
+        $question->delete();
+        return redirect('/questions')->with("success", "Your Question has beed deleted.");
+    }
 }
