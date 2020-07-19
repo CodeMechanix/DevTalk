@@ -57,6 +57,12 @@ class QuestionController extends Controller
         return redirect('/questions')->with('success', "Your question has been updated.");
     }
 
+    public function show(Question $question)
+    {
+        $question->increment('views');
+        return view('questions.show', compact('question'));
+    }
+
     public function destroy(Question $question)
     {
         $question->delete();
