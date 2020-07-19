@@ -35,4 +35,17 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class)->orderBy('votes_count', 'DESC');
     }
+
+    public function getStatusAttribute()
+    {
+        if($this->answers > 0)
+        {
+            if ($this->best_answer_id)
+            {
+                return "answered-accepted";
+            }
+            return "answered";
+        }
+        return "unanswered";
+    }
 }
