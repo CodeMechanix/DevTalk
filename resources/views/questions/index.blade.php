@@ -30,7 +30,7 @@
                                     </div>
                                     <div class="status {{ $question->status }}">
                                         <strong>
-                                            {{$question->answers}}
+                                            {{$question->answers_count}}
                                         </strong>
                                         {{str_plural('answer', $question->answers)}}
                                     </div>
