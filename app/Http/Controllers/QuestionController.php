@@ -11,6 +11,11 @@ use App\Http\Requests\AskQuestionRequest;
 
 class QuestionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     public function index()
     {
         // Start Query Log
@@ -47,10 +52,13 @@ class QuestionController extends Controller
 
     public function edit(Question $question)
     {
+        /*
         // \Gate::allow
         if (\Gate::denies('update-question', $question)) {
             abort(403, "Access Denied");
         }
+        */
+        $this->authorize("update", $question);
         return view("questions.edit", compact('question'));
     }
 
@@ -73,10 +81,13 @@ class QuestionController extends Controller
 
     public function destroy(Question $question)
     {
+        /*
         if (\Gate::denies('delete-question', $question)) {
             abort(403, "Access Denied");
         }
+        */
 
+        $this->authorize("delete", $question);
         $question->delete();
         return redirect('/questions')->with("success", "Your Question has beed deleted.");
     }
