@@ -57,4 +57,19 @@ class Question extends Model
         return \Parsedown::instance()->text($this->body);
     }
 
+    public function getIsFavoritedAttribute()
+    {
+        return $this->isFavorited();
+    }
+
+    public function isFavorited()
+    {
+        return $this->favorites()->where('user_id', request()->user()->id())->count() > 0;
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps(); //, 'question_id', 'user_id');
+    }
+
 }
