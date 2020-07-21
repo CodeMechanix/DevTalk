@@ -23,7 +23,7 @@ class Answer extends Model
 
     public function getBodyHtmlAttribute()
     {
-        return clean(\Parsedown::instance()->text($this->body));
+        return \Parsedown::instance()->text($this->body);
     }
 
     public static function boot()
@@ -37,6 +37,11 @@ class Answer extends Model
         static::deleted(function ($answer) {
             $answer->question->decrement('answers_count');
         });
+    }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 
 }
